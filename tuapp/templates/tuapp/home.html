@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triangle Checker App</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+            transition: transform 0.5s ease-out;
+        }
+
+        label.slide-in {
+            transform: translateY(0);
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            margin-top: 16px;
+            font-weight: bold;
+            color: #333;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .result-container {
+            margin-top: 16px;
+        }
+
+        .clear-button {
+            background-color: #f44336;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .clear-button:hover {
+            background-color: #d32f2f;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h2>Welcome to Triangle Checker App!</h2>
+        
+        <!-- Form for checking the triangle -->
+        <form method="post" action="{% url 'home' %}">
+            {% csrf_token %}
+            <!-- Input fields for triangle sides -->
+            <label for="side1" class="slide-in">a:</label>
+            <input type="number" name="side1" required>
+            
+            <label for="side2" class="slide-in">b:</label>
+            <input type="number" name="side2" required>
+            
+            <label for="side3" class="slide-in">c:</label>
+            <input type="number" name="side3" required>
+            
+            <button type="submit">Check Triangle</button>
+        </form>
+        
+        <!-- Display the result if available -->
+        <div class="result-container">
+            {% if result %}
+                <p>{{ result }}</p>
+                <button class="clear-button" type="button" onclick="clearForm()">Clear</button>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // JavaScript function to clear the form
+        function clearForm() {
+            document.querySelector('form').reset();
+        }
+    </script>
+</body>
+</html>
